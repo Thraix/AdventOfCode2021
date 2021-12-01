@@ -1,0 +1,180 @@
+#pragma once
+
+#include <iostream>
+#include <vector>
+
+template <typename T>
+struct Array4D
+{
+  int width;
+  int height;
+  int length;
+  int time;
+  int w;
+  std::vector<T> array4D;
+
+  Array4D(int width, int height, int length, int time)
+    : width{width}, height{height}, length{length}, time{time}
+  {
+    array4D.resize(width * height * length * time);
+  }
+
+  Array4D(int width, int height, int length, int time, const std::vector<T>& data)
+    : width{width}, height{height}, length{length}, w{time}, array4D{data}
+  {}
+
+  void Fill(const T& value)
+  {
+    for (int i = 0; i < width * height * length * time; i++)
+    {
+      array4D[i] = value;
+    }
+  }
+
+  int GetIndex(int x, int y, int z, int w) const
+  {
+    return x + y * width + z * width * height + w * width * height * length;
+  }
+
+  T& Get(int x, int y, int z, int w) 
+  {
+    return array4D[x + y * width + z * width * height + w * width * height * length];
+  }
+
+  const T& Get(int x, int y, int z, int w) const
+  {
+    return array4D[x + y * width + z * width * height + w * width * height * length];
+  }
+
+  T& GetMirror(int x, int y, int z, int w) 
+  {
+    // if width = 3, it will repeat x like this: 012210012210, same with height and length
+    int x = (x / width ) % 2 == 0 ? x % width  : width  - (x % width ) - 1;
+    int y = (y / height) % 2 == 0 ? y % height : height - (y % height) - 1;
+    int z = (z / length) % 2 == 0 ? z % length : length - (z % length) - 1;
+    return array4D[x + y * width + z * width * height + w * width * height * length];
+  }
+
+  const T& GetMirror(int x, int y, int z, int w) const
+  {
+    // if width = 3, it will repeat x like this: 012210012210, same with height and length
+    int x = (x / width ) % 2 == 0 ? x % width  : width  - (x % width ) - 1;
+    int y = (y / height) % 2 == 0 ? y % height : height - (y % height) - 1;
+    int z = (z / length) % 2 == 0 ? z % length : length - (z % length) - 1;
+    int w = (w / time  ) % 2 == 0 ? w % time   : time   - (z % time  ) - 1;
+    return array4D[x + y * width + z * width * height + w * width * height * length];
+  }
+
+  T& GetMod(int x, int y, int z, int w) 
+  {
+    return array4D[((x % width  + width ) % width) + 
+                   ((y % height + height) % height) * width + 
+                   ((z % length + length) % length) * width * height + 
+                   ((w % time   + time  ) % time  ) * width * height * length];
+  }
+
+  const T& GetMod(int x, int y, int z, int w) const
+  {
+    return array4D[((x % width  + width ) % width) + 
+                   ((y % height + height) % height) * width + 
+                   ((z % length + length) % length) * width * height + 
+                   ((w % time   + time  ) % time  ) * width * height * length];
+  }
+
+  void Set(int x, int y, int z, int w, const T& val)
+  {
+    Get(x, y, z, w) = val;
+  }
+
+  void SetMod(int x, int y, int z, int w, const T& val)
+  {
+    GetMod(x, y, z, w) = val;
+  }
+
+  void SetMirror(int x, int y, int z, int w, const T& val)
+  {
+    GetMirror(x, y, z, w) = val;
+  }
+
+  int GetNeighbors(const T& val, int x, int y, int z, int w, int size = 1) const
+  {
+    int neighbors = 0;
+    for (int wi = w - size; wi <= w + size; wi++)
+    {
+      for (int zi = z - size; zi <= z + size; zi++)
+      {
+        for (int yi = y - size; yi <= y + size; yi++)
+        {
+          for (int xi = x - size; xi <= x + size; xi++)
+          {
+            if (xi < 0 || yi < 0 || zi < 0 || wi < 0 || xi >= width || yi >= height || zi >= length || wi >= time)
+              continue;
+            if (xi == x && yi == y && zi == z && wi == w)
+              continue;
+            if (Get(xi, yi, zi, wi) == val)
+              neighbors++;
+          }
+        }
+      }
+    }
+    return neighbors;
+  }
+
+  int Count(const T& val)
+  {
+    int count = 0;
+    for (int w = 0; w < length; w++)
+    {
+      for (int z = 0; z < length; z++)
+      {
+        for (int y = 0; y < height; y++)
+        {
+          for (int x = 0; x < width; x++)
+          {
+            if (Get(x, y, z, w) == val)
+              count++;
+          }
+        }
+      }
+    }
+    return count;
+  }
+
+  template <typename T>
+  void Each(T func) const
+  {
+    for (int w = 0; w < length; w++)
+    {
+      for (int z = 0; z < length; z++)
+      {
+        for (int y = 0; y < height; y++)
+        {
+          for (int x = 0; x < width; x++)
+          {
+            func(*this, x, y, z, w);
+          }
+        }
+      }
+    }
+  }
+
+  friend std::ostream& operator<<(std::ostream& os, const Array4D& array4D)
+  {
+    for (int w = 0; w < array4D.time; w++)
+    {
+      for (int z = 0; z < array4D.length; z++)
+      {
+        std::cout << "w=" << w << " z=" << z << std::endl;
+        for (int y = 0; y < array4D.height; y++)
+        {
+          for (int x = 0; x < array4D.width; x++)
+          {
+            std::cout << array4D.Get(x, y, z, w);
+          }
+          std::cout << std::endl;
+        }
+      }
+    }
+    return std::cout;
+  }
+};
