@@ -17,7 +17,7 @@ namespace day02
   REGISTER_TEST_EXAMPLE(day02, ExampleInput, 1, 150);
   REGISTER_TEST        (day02, Input,        1, 1815044);
   REGISTER_TEST_EXAMPLE(day02, ExampleInput, 2, 900);
-  REGISTER_TEST        (day02, Input,        2, 0);
+  REGISTER_TEST        (day02, Input,        2, 1739283308);
 
   READ_INPUT(input)
   {
