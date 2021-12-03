@@ -28,6 +28,40 @@ struct Helper
     return std::string_view{str.c_str() + str.size() - prefix.size(), prefix.size()} == prefix;
   }
 
+  static int BinStrToInt(const std::string& str)
+  {
+    if(str.size() >= 32)
+    {
+      std::cout << "BinStrToInt: Too big string, use BinStrToInt64 instead" << std::endl;
+      return 0;
+    }
+
+    int val = 0;
+    for(size_t i = 0; i < str.size(); i++)
+    {
+      if(str[i] == '1')
+        val |= (1 << str.size() - i - 1);
+    }
+    return val;
+  }
+
+  static int64_t BinStrToInt64(const std::string& str)
+  {
+    if(str.size() >= 64)
+    {
+      std::cout << "BinStrToInt64: Too big string" << std::endl;
+      return 0;
+    }
+
+    int64_t val = 0;
+    for(size_t i = 0; i < str.size(); i++)
+    {
+      if(str[i] == '1')
+        val |= (1 << str.size() - i - 1);
+    }
+    return val;
+  }
+
   template <typename T, typename S>
   static T Sum(const S& container)
   {
