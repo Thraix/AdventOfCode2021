@@ -3,6 +3,23 @@
 #include <iostream>
 #include <vector>
 
+struct Index3D
+{
+  int x = -1;
+  int y = -1;
+  int z = -1;
+
+  bool IsValid()
+  {
+    return x != -1 && y != -1 && z != -1;
+  }
+
+  operator bool()
+  {
+    return IsValid();
+  }
+};
+
 template <typename T>
 struct Array3D
 {
@@ -42,6 +59,16 @@ struct Array3D
   const T& Get(int x, int y, int z) const
   {
     return array3D[x + y * width + z * width * height];
+  }
+
+  T& operator[](const Index3D& index)
+  {
+    return Get(index.x, index.y, index.z);
+  }
+
+  const T& operator[](const Index3D& index) const
+  {
+    return Get(index.x, index.y, index.z);
   }
 
   T& GetMirror(int x, int y, int z) 
@@ -138,6 +165,22 @@ struct Array3D
         }
       }
     }
+  }
+
+  Index3D Find(const T& value)
+  {
+    for(int z = 0; z < length; z++)
+    {
+      for(int y = 0; y < height; y++)
+      {
+        for(int x = 0; x < width; x++)
+        {
+          if(Get(x, y, z) == value)
+            return Index3D{x, y, z};
+        }
+      }
+    }
+    return Index3D{};
   }
 
   friend std::ostream& operator<<(std::ostream& os, const Array3D& array3D)

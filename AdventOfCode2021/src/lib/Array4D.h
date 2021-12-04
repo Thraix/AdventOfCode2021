@@ -3,6 +3,24 @@
 #include <iostream>
 #include <vector>
 
+struct Index4D
+{
+  int x = -1;
+  int y = -1;
+  int z = -1;
+  int w = -1;
+
+  bool IsValid()
+  {
+    return x != -1 && y != -1 && z != -1 && w != -1;
+  }
+
+  operator bool()
+  {
+    return IsValid();
+  }
+};
+
 template <typename T>
 struct Array4D
 {
@@ -44,6 +62,16 @@ struct Array4D
   const T& Get(int x, int y, int z, int w) const
   {
     return array4D[x + y * width + z * width * height + w * width * height * length];
+  }
+
+  T& operator[](const Index4D& index)
+  {
+    return Get(index.x, index.y, index.z, index.w);
+  }
+
+  const T& operator[](const Index4D& index) const
+  {
+    return Get(index.x, index.y, index.z, index.w);
   }
 
   T& GetMirror(int x, int y, int z, int w) 
@@ -156,6 +184,25 @@ struct Array4D
         }
       }
     }
+  }
+
+  Index4D Find(const T& value)
+  {
+    for(int w = 0; w < time; w++)
+    {
+      for(int z = 0; z < length; z++)
+      {
+        for(int y = 0; y < height; y++)
+        {
+          for(int x = 0; x < width; x++)
+          {
+            if(Get(x, y, z, w) == value)
+              return Index4D{x, y, z, w};
+          }
+        }
+      }
+    }
+    return Index4D{};
   }
 
   friend std::ostream& operator<<(std::ostream& os, const Array4D& array4D)

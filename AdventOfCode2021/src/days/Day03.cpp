@@ -22,12 +22,10 @@ namespace day03
 
   OUTPUT1(input)
   {
-    int mask = 0;
     int gamma = 0;
     int width = input.begin()->size();
     for(int x = 0; x < width; x++)
     {
-      mask |= 1 << width - x - 1;
       int count = 0;
       for(auto&& str : input)
       {
@@ -36,10 +34,11 @@ namespace day03
       }
       if(count >= input.size() / 2)
       {
-        gamma |= (1 << (width - x - 1));
+        gamma |= BIT(width - x - 1);
       }
     }
-    return gamma * ((~gamma) & mask);
+    int invertMask = BIT(width) - 1;
+    return gamma * (gamma ^ invertMask);
   }
 
   OUTPUT2(input)

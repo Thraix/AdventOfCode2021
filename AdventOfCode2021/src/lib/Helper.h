@@ -6,6 +6,8 @@
 #include <set>
 #include <vector>
 
+#define BIT(x) (1 << (x))
+
 struct Helper
 {
   template <typename T, typename S>
@@ -57,7 +59,7 @@ struct Helper
     for(size_t i = 0; i < str.size(); i++)
     {
       if(str[i] == '1')
-        val |= (1 << str.size() - i - 1);
+        val |= (1ll << str.size() - i - 1);
     }
     return val;
   }

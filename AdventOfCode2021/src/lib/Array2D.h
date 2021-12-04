@@ -3,9 +3,26 @@
 #include <iostream>
 #include <vector>
 
+struct Index2D
+{
+  int x = -1;
+  int y = -1;
+
+  bool IsValid()
+  {
+    return x != -1 && y != -1;
+  }
+
+  operator bool()
+  {
+    return IsValid();
+  }
+};
+
 template <typename T>
 struct Array2D
 {
+
   int width;
   int height;
   std::vector<T> array2D;
@@ -13,7 +30,7 @@ struct Array2D
   Array2D(int width, int height)
     : width{width}, height{height}
   {
-    array2D.reserve(width * height);
+    array2D.resize(width * height);
   }
 
   Array2D(int width, int height, const std::vector<T>& data)
@@ -41,6 +58,16 @@ struct Array2D
   const T& Get(int x, int y) const
   {
     return array2D[x + y * width];
+  }
+
+  T& operator[](const Index2D& index)
+  {
+    return Get(index.x, index.y);
+  }
+
+  const T& operator[](const Index2D& index) const
+  {
+    return Get(index.x, index.y);
   }
 
   T& GetMirror(int x, int y) 
@@ -186,6 +213,19 @@ struct Array2D
         func(*this, x, y);
       }
     }
+  }
+
+  Index2D Find(const T& value)
+  {
+    for(int y = 0; y < height; y++)
+    {
+      for(int x = 0; x < width; x++)
+      {
+        if(Get(x, y) == value)
+          return Index2D{x, y};
+      }
+    }
+    return Index2D{};
   }
 
   friend std::ostream& operator<<(std::ostream& os, const Array2D& array2D)
