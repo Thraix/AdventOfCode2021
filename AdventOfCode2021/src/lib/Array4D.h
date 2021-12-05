@@ -19,6 +19,22 @@ struct Index4D
   {
     return IsValid();
   }
+
+  friend std::ostream& operator<<(std::ostream& stream, const Index4D& index)
+  {
+    return stream << "(" << index.x << " " << index.y << " " << index.z << " " << index.w << ")";
+  }
+
+  friend bool operator<(const Index4D& lhs, const Index4D& rhs)
+  {
+    if(lhs.x != rhs.x)
+      return lhs.x < rhs.x;
+    if(lhs.y != rhs.y)
+      return lhs.y < rhs.y;
+    if(lhs.z != rhs.z)
+      return lhs.z < rhs.z;
+    return lhs.w < rhs.w;
+  }
 };
 
 template <typename T>
@@ -168,7 +184,7 @@ struct Array4D
     return count;
   }
 
-  template <typename T>
+  template <typename Function>
   void Each(T func) const
   {
     for (int w = 0; w < length; w++)
@@ -179,7 +195,7 @@ struct Array4D
         {
           for (int x = 0; x < width; x++)
           {
-            func(*this, x, y, z, w);
+            func(*this, Index4D{x, y, z, w});
           }
         }
       }

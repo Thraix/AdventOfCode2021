@@ -17,6 +17,18 @@ struct Index2D
   {
     return IsValid();
   }
+
+  friend std::ostream& operator<<(std::ostream& stream, const Index2D& index)
+  {
+    return stream << "(" << index.x << " " << index.y << ")";
+  }
+
+  friend bool operator<(const Index2D& lhs, const Index2D& rhs)
+  {
+    if(lhs.x != rhs.x)
+      return lhs.x < rhs.x;
+    return lhs.y < rhs.y;
+  }
 };
 
 template <typename T>
@@ -203,14 +215,14 @@ struct Array2D
     }
   }
 
-  template <typename T>
-  void Each(T func) const
+  template <typename Function>
+  void Each(Function func) const
   {
     for (int y = 0; y < height; y++)
     {
       for (int x = 0; x < width; x++)
       {
-        func(*this, x, y);
+        func(*this, Index2D{x, y});
       }
     }
   }

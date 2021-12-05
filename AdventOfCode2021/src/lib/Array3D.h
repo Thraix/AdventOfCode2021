@@ -18,6 +18,20 @@ struct Index3D
   {
     return IsValid();
   }
+
+  friend std::ostream& operator<<(std::ostream& stream, const Index3D& index)
+  {
+    return stream << "(" << index.x << " " << index.y << " " << index.z << ")";
+  }
+
+  friend bool operator<(const Index3D& lhs, const Index3D& rhs)
+  {
+    if(lhs.x != rhs.x)
+      return lhs.x < rhs.x;
+    if(lhs.y != rhs.y)
+      return lhs.y < rhs.y;
+    return lhs.z < rhs.z;
+  }
 };
 
 template <typename T>
@@ -152,8 +166,8 @@ struct Array3D
     return count;
   }
 
-  template <typename T>
-  void Each(T func) const
+  template <typename Function>
+  void Each(Function func) const
   {
     for (int z = 0; z < length; z++)
     {
@@ -161,7 +175,7 @@ struct Array3D
       {
         for (int x = 0; x < width; x++)
         {
-          func(*this, x, y, z);
+          func(*this, Index3D{x, y, z});
         }
       }
     }

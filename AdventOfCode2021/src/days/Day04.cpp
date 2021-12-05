@@ -80,8 +80,8 @@ namespace day04
         if(MarkAndCheck(board, number))
         {
           int total = 0;
-          board.Each([&](const Array2D<int>& board, int x, int y) {
-            if(board.Get(x, y) != -1) total += board.Get(x, y);
+          board.Each([&](const Array2D<int>& board, const Index2D& index) {
+            if(board[index] != -1) total += board[index];
           });
           return total * number;
         }
@@ -106,8 +106,8 @@ namespace day04
           if(game.boards.size() == 1)
           {
             int total = 0;
-            game.boards.front().Each([&](const Array2D<int>& board, int x, int y) {
-              if(board.Get(x, y) != -1) total += board.Get(x, y);
+            game.boards.front().Each([&](const Array2D<int>& board, const Index2D& index) {
+              if(board[index] != -1) total += board[index];
             });
             return total * number;
           }

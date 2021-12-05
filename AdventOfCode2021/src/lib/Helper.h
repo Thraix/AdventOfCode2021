@@ -89,6 +89,12 @@ struct Helper
   }
 
   template <typename T>
+  static T Sign(const T& t)
+  {
+    return t > 0 ? 1 : t < 0 ? -1 : 0;
+  }
+
+  template <typename T>
   static std::set<T> GetUnion(const std::vector<std::set<T>>& list)
   {
     std::set<char> uniq;
