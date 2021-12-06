@@ -90,9 +90,10 @@ namespace aoc
           std::cout << TERM_RED << "Could not find input file: " << test->GetInputFile() << TERM_CLEAR << std::endl;
           return false;
         }
+        std::string testName = name + ".P" + std::to_string(test->GetPart()) + "." + test->GetName();
+        std::cout << TERM_GREEN << "[ RUN     ] " << TERM_CLEAR << testName << std::endl;
         InputType input = ReadInput(inputStream);
         OutputType output = test->GetPart() == 1 ? Output1(input) : Output2(input);
-        std::string testName = name + ".P" + std::to_string(test->GetPart()) + "." + test->GetName();
         if (!Check(test->GetExpectedOutput(), output, testName))
         {
           return false;
@@ -115,14 +116,13 @@ namespace aoc
     {
       if (expected == actual)
       {
-        std::cout << TERM_GREEN << "[      OK ] " << TERM_CLEAR << name << std::endl;
+        std::cout << TERM_GREEN << "[      OK ] " << TERM_CLEAR << "  Result: " << actual << std::endl;
         return true;
       }
       else
       {
-        std::cout << TERM_RED << "[  FAILED ] " << TERM_CLEAR << name << std::endl;
-        std::cout << TERM_RED << "[  FAILED ] " << TERM_CLEAR << "Unexpected value in " << name << std::endl;
-        std::cout << TERM_RED << "[  FAILED ] " << TERM_CLEAR << "  expect: " << expected << std::endl;
+        std::cout << TERM_RED << "[         ] " << TERM_CLEAR << "Unexpected value in " << name << std::endl;
+        std::cout << TERM_RED << "[         ] " << TERM_CLEAR << "  expect: " << expected << std::endl;
         std::cout << TERM_RED << "[  FAILED ] " << TERM_CLEAR << "  actual: " << actual << std::endl;
         return false;
       }
