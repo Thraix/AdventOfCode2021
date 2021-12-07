@@ -8,7 +8,7 @@ namespace day06
     for(int i = 0; i < days; i++)
     {
       int64_t newBorn = lenternfishes[0];
-      for(int j = 1; j < lenternfishes.size(); j++)
+      for(size_t j = 1; j < lenternfishes.size(); j++)
       {
         lenternfishes[j - 1] = lenternfishes[j];
       }

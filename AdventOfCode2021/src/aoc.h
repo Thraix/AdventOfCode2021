@@ -5,6 +5,7 @@
 #include "lib/Array4D.h"
 #include "lib/Helper.h"
 #include "lib/Input.h"
+#include "lib/Timer.h"
 
 #include <algorithm>
 #include <cstring>
@@ -94,6 +95,7 @@ namespace aoc
         std::cout << TERM_GREEN << "[ RUN     ] " << TERM_CLEAR << testName << std::endl;
         InputType input = ReadInput(inputStream);
         OutputType output = test->GetPart() == 1 ? Output1(input) : Output2(input);
+
         if (!Check(test->GetExpectedOutput(), output, testName))
         {
           return false;

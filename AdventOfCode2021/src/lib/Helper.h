@@ -42,7 +42,7 @@ struct Helper
     for(size_t i = 0; i < str.size(); i++)
     {
       if(str[i] == '1')
-        val |= (1 << str.size() - i - 1);
+        val |= (1 << (str.size() - i - 1));
     }
     return val;
   }
@@ -59,7 +59,7 @@ struct Helper
     for(size_t i = 0; i < str.size(); i++)
     {
       if(str[i] == '1')
-        val |= (1ll << str.size() - i - 1);
+        val |= (1ll << (str.size() - i - 1));
     }
     return val;
   }
@@ -86,6 +86,38 @@ struct Helper
   static T Product(const Container& container, S func)
   {
     return std::accumulate(container.begin(), container.end(), (T)1, func);
+  }
+
+  template <typename Container>
+  static typename Container::value_type Min(const Container& container)
+  {
+    if(container.size() == 0)
+    {
+      std::cout << "Min: Container empty" << std::endl;
+      return typename Container::value_type{};
+    }
+    typename Container::value_type min = *container.begin();
+    for(auto&& element : container)
+    {
+      min = std::min(min, element);
+    }
+    return min;
+  }
+
+  template <typename Container>
+  static typename Container::value_type Max(const Container& container)
+  {
+    if(container.size() == 0)
+    {
+      std::cout << "Min: Container empty" << std::endl;
+      return typename Container::value_type{};
+    }
+    typename Container::value_type max= *container.begin();
+    for(auto&& element : container)
+    {
+      max = std::max(max, element);
+    }
+    return max;
   }
 
   template <typename T>

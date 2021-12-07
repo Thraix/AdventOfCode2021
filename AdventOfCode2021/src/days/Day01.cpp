@@ -17,7 +17,7 @@ namespace day01
   OUTPUT1(input)
   {
     int count = 0;
-    for (int i = 0; i < input.size() - 1; i++)
+    for (size_t i = 0; i < input.size() - 1; i++)
     {
       if (input[i] < input[i + 1]) count++;
     }
@@ -27,7 +27,7 @@ namespace day01
   OUTPUT2(input)
   {
     int count = 0;
-    for (int i = 0; i < input.size() - 3; i++)
+    for (size_t i = 0; i < input.size() - 3; i++)
     {
       if (input[i] + input[i+1] + input[i+2] < input[i+1] + input[i+2] + input[i+3]) count++;
     }

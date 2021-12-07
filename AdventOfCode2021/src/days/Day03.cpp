@@ -26,7 +26,7 @@ namespace day03
     int width = input.begin()->size();
     for(int x = 0; x < width; x++)
     {
-      int count = 0;
+      size_t count = 0;
       for(auto&& str : input)
       {
         if(str[x] == '1')
@@ -50,7 +50,7 @@ namespace day03
     for(int i = 0; i < width; i++)
     {
       char mostCommon = '0';
-      int count = 0;
+      size_t count = 0;
       for(auto it = oxygen.begin(); it != oxygen.end(); it++)
       {
         if(it->at(i) == '1')

@@ -149,6 +149,7 @@
     <ClCompile Include="src\days\Day04.cpp" />
     <ClCompile Include="src\days\Day05.cpp" />
     <ClCompile Include="src\days\Day06.cpp" />
+    <ClCompile Include="src\days\Day07.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +159,7 @@
     <ClInclude Include="src\lib\Array4D.h" />
     <ClInclude Include="src\lib\Helper.h" />
     <ClInclude Include="src\lib\Input.h" />
+    <ClInclude Include="src\lib\Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
