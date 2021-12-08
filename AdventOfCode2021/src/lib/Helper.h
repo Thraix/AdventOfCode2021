@@ -147,10 +147,28 @@ struct Helper
 
     for (size_t i = 1; i < list.size(); i++)
     {
-      std::set<char> localIntersection;
-      std::set_intersection(intersection.cbegin(), intersection.cend(), list[i].cbegin(), list[i].cend(), std::inserter(localIntersection, localIntersection.begin()));
-      intersection = localIntersection;
+      for(auto it = intersection.begin(); it != intersection.end();)
+      {
+        if(list[i].find(*it) == list[i].end())
+          it = intersection.erase(it);
+        else
+          it++;
+      }
     }
     return intersection;
+  }
+
+  template <typename T>
+  static bool IsSubset(const std::set<T>& smallSet, const std::set<T>& bigSet)
+  {
+    if(bigSet.size() < smallSet.size())
+      return false;
+
+    for(auto&& t : smallSet)
+    {
+      if(bigSet.find(t) == bigSet.end())
+        return false;
+    }
+    return true;
   }
 };
