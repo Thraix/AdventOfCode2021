@@ -141,6 +141,11 @@ struct Array2D
     return neighbors;
   }
 
+  bool IsInside(const Index2D& index) const
+  {
+    return index.x >= 0 && index.y >= 0 && index.x < width && index.y < height;
+  }
+
   int Count(const T& val)
   {
     int count = 0;

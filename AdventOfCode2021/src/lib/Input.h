@@ -24,6 +24,23 @@ struct Input
     return Array2D<char>(width, height, data);
   }
 
+  static Array2D<int> ReadDigitsAsArray2D(std::istream& input)
+  {
+    std::vector<int> data;
+    int width = 0;
+    int height = 0;
+    std::string str;
+    while (getline(input, str))
+    {
+      width = str.length();
+      height++;
+      for (auto c : str)
+        data.emplace_back(c - '0');
+    }
+    return Array2D<int>(width, height, data);
+  }
+
+
   static std::vector<int> ReadInts(std::istream& input)
   {
     return ReadInts(input, '\n');
