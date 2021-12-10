@@ -68,4 +68,13 @@ struct Input
       ints.emplace_back(std::atoll(str.c_str()));
     return ints;
   }
+
+  static std::vector<std::string> ReadLines(std::istream& input)
+  {
+    std::vector<std::string> strings;
+    std::string str;
+    while (getline(input, str))
+      strings.emplace_back(str);
+    return strings;
+  }
 };

@@ -4,6 +4,7 @@
 #include "lib/Array3D.h"
 #include "lib/Array4D.h"
 #include "lib/Helper.h"
+#include "lib/Mapper.h"
 #include "lib/Input.h"
 #include "lib/Timer.h"
 
