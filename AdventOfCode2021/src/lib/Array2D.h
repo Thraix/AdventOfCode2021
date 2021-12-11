@@ -29,12 +29,21 @@ struct Index2D
       return lhs.x < rhs.x;
     return lhs.y < rhs.y;
   }
+
+  friend bool operator==(const Index2D& lhs, const Index2D& rhs)
+  {
+    return lhs.x == rhs.x && lhs.y == rhs.y;
+  }
+
+  friend bool operator!=(const Index2D& lhs, const Index2D& rhs)
+  {
+    return !operator==(lhs, rhs);
+  }
 };
 
 template <typename T>
 struct Array2D
 {
-
   int width;
   int height;
   std::vector<T> array2D;
@@ -243,6 +252,35 @@ struct Array2D
       }
     }
     return Index2D{};
+  }
+
+  void Increment(Index2D& index) const
+  {
+    index.x++;
+    if(index.x != width)
+      return;
+    index.x = 0;
+    index.y++;
+  }
+
+  std::vector<int>::iterator begin()
+  {
+    return array2D.begin();
+  }
+
+  std::vector<int>::iterator end()
+  {
+    return array2D.end();
+  }
+
+  std::vector<int>::const_iterator begin() const
+  {
+    return array2D.cbegin();
+  }
+
+  std::vector<int>::const_iterator end() const
+  {
+    return array2D.cend();
   }
 
   friend std::ostream& operator<<(std::ostream& os, const Array2D& array2D)

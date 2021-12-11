@@ -35,6 +35,16 @@ struct Index4D
       return lhs.z < rhs.z;
     return lhs.w < rhs.w;
   }
+
+  friend bool operator==(const Index4D& lhs, const Index4D& rhs)
+  {
+    return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z && lhs.w == rhs.w;
+  }
+
+  friend bool operator!=(const Index4D& lhs, const Index4D& rhs)
+  {
+    return !operator==(lhs, rhs);
+  }
 };
 
 template <typename T>
@@ -219,6 +229,43 @@ struct Array4D
       }
     }
     return Index4D{};
+  }
+
+  void Increment(Index4D& index)
+  {
+    index.x++;
+    if(index.x != width)
+      return;
+    index.x = 0;
+    index.y++;
+    if(index.y != height)
+      return;
+    index.y = 0;
+    index.z++;
+    if(index.z != length)
+      return;
+    index.z = 0;
+    index.w++;
+  }
+
+  std::vector<int>::iterator begin()
+  {
+    return array4D.begin();
+  }
+
+  std::vector<int>::iterator end()
+  {
+    return array4D.end();
+  }
+
+  std::vector<int>::const_iterator begin() const
+  {
+    return array4D.cbegin();
+  }
+
+  std::vector<int>::const_iterator end() const
+  {
+    return array4D.cend();
   }
 
   friend std::ostream& operator<<(std::ostream& os, const Array4D& array4D)

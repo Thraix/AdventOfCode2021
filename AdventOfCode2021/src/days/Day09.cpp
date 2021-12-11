@@ -17,36 +17,52 @@ namespace day09
   OUTPUT1(input)
   {
     int count = 0;
-    input.Each([&count](auto&& array, const Index2D& index) {
+    Index2D index{0, 0};
+    for(auto& val : input)
+    {
       Index2D indices[4]{{index.x - 1, index.y},
                          {index.x, index.y - 1},
                          {index.x + 1, index.y},
                          {index.x, index.y + 1}};
-      for(auto&& ind : indices)
+      bool all = true;
+      for(auto& ind : indices)
       {
-        if(array.IsInside(ind) && array[ind] <= array[index])
-          return;
+        if(input.IsInside(ind) && input[ind] <= val)
+        {
+          all = false;
+          break;
+        }
       }
-      count += array[index] + 1;
-    });
+      if(all)
+        count += val + 1;
+      input.Increment(index);
+    }
     return count;
   }
 
   OUTPUT2(input)
   {
     std::vector<Index2D> basins;
-    input.Each([&basins](auto&& array, const Index2D& index) {
+    Index2D index{0, 0};
+    for(auto& val : input)
+    {
       Index2D indices[4]{{index.x - 1, index.y},
                          {index.x, index.y - 1},
                          {index.x + 1, index.y},
                          {index.x, index.y + 1}};
-      for(auto&& ind : indices)
+      bool all = true;
+      for(auto& ind : indices)
       {
-        if(array.IsInside(ind) && array[ind] <= array[index])
-          return;
+        if(input.IsInside(ind) && input[ind] <= val)
+        {
+          all = false;
+          break;
+        }
       }
-      basins.emplace_back(index);
-    });
+      if(all)
+        basins.emplace_back(index);
+      input.Increment(index);
+    }
 
     std::vector<int> numbers;
     for(auto&& basin : basins)

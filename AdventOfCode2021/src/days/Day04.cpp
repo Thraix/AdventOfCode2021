@@ -80,9 +80,11 @@ namespace day04
         if(MarkAndCheck(board, number))
         {
           int total = 0;
-          board.Each([&](const Array2D<int>& board, const Index2D& index) {
-            if(board[index] != -1) total += board[index];
-          });
+          for(auto& val : board)
+          {
+            if(val != -1)
+              total += val;
+          }
           return total * number;
         }
       }
@@ -106,9 +108,11 @@ namespace day04
           if(game.boards.size() == 1)
           {
             int total = 0;
-            game.boards.front().Each([&](const Array2D<int>& board, const Index2D& index) {
-              if(board[index] != -1) total += board[index];
-            });
+            for(auto& val : game.boards.front())
+            {
+              if(val != -1)
+                total += val;
+            }
             return total * number;
           }
           it = game.boards.erase(it);

@@ -32,6 +32,16 @@ struct Index3D
       return lhs.y < rhs.y;
     return lhs.z < rhs.z;
   }
+
+  friend bool operator==(const Index3D& lhs, const Index3D& rhs)
+  {
+    return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z;
+  }
+
+  friend bool operator!=(const Index3D& lhs, const Index3D& rhs)
+  {
+    return !operator==(lhs, rhs);
+  }
 };
 
 template <typename T>
@@ -195,6 +205,39 @@ struct Array3D
       }
     }
     return Index3D{};
+  }
+
+  void Increment(Index3D& index)
+  {
+    index.x++;
+    if(index.x != width)
+      return;
+    index.x = 0;
+    index.y++;
+    if(index.y != height)
+      return;
+    index.y = 0;
+    index.z++;
+  }
+
+  std::vector<int>::iterator begin()
+  {
+    return array3D.begin();
+  }
+
+  std::vector<int>::iterator end()
+  {
+    return array3D.end();
+  }
+
+  std::vector<int>::const_iterator begin() const
+  {
+    return array3D.cbegin();
+  }
+
+  std::vector<int>::const_iterator end() const
+  {
+    return array3D.cend();
   }
 
   friend std::ostream& operator<<(std::ostream& os, const Array3D& array3D)
