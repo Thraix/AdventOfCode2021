@@ -94,8 +94,8 @@ struct Array2D
   T& GetMirror(int x, int y) 
   {
     // if width = 3, it will repeat x like this: 012210012210, same with height
-    int x = (x / width ) % 2 == 0 ? x % width  : width  - (x % width ) - 1;
-    int y = (y / height) % 2 == 0 ? y % height : height - (y % height) - 1;
+    x = (x / width ) % 2 == 0 ? x % width  : width  - (x % width ) - 1;
+    y = (y / height) % 2 == 0 ? y % height : height - (y % height) - 1;
     return array2D[x + y * width];
   }
 
@@ -263,22 +263,22 @@ struct Array2D
     index.y++;
   }
 
-  std::vector<int>::iterator begin()
+  typename std::vector<T>::iterator begin()
   {
     return array2D.begin();
   }
 
-  std::vector<int>::iterator end()
+  typename std::vector<T>::iterator end()
   {
     return array2D.end();
   }
 
-  std::vector<int>::const_iterator begin() const
+  typename std::vector<T>::const_iterator begin() const
   {
     return array2D.cbegin();
   }
 
-  std::vector<int>::const_iterator end() const
+  typename std::vector<T>::const_iterator end() const
   {
     return array2D.cend();
   }

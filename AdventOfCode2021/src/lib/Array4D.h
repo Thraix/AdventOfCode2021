@@ -103,19 +103,20 @@ struct Array4D
   T& GetMirror(int x, int y, int z, int w) 
   {
     // if width = 3, it will repeat x like this: 012210012210, same with height and length
-    int x = (x / width ) % 2 == 0 ? x % width  : width  - (x % width ) - 1;
-    int y = (y / height) % 2 == 0 ? y % height : height - (y % height) - 1;
-    int z = (z / length) % 2 == 0 ? z % length : length - (z % length) - 1;
+    x = (x / width ) % 2 == 0 ? x % width  : width  - (x % width ) - 1;
+    y = (y / height) % 2 == 0 ? y % height : height - (y % height) - 1;
+    z = (z / length) % 2 == 0 ? z % length : length - (z % length) - 1;
+    w = (w / time  ) % 2 == 0 ? w % time   : time   - (z % time  ) - 1;
     return array4D[x + y * width + z * width * height + w * width * height * length];
   }
 
   const T& GetMirror(int x, int y, int z, int w) const
   {
     // if width = 3, it will repeat x like this: 012210012210, same with height and length
-    int x = (x / width ) % 2 == 0 ? x % width  : width  - (x % width ) - 1;
-    int y = (y / height) % 2 == 0 ? y % height : height - (y % height) - 1;
-    int z = (z / length) % 2 == 0 ? z % length : length - (z % length) - 1;
-    int w = (w / time  ) % 2 == 0 ? w % time   : time   - (z % time  ) - 1;
+    x = (x / width ) % 2 == 0 ? x % width  : width  - (x % width ) - 1;
+    y = (y / height) % 2 == 0 ? y % height : height - (y % height) - 1;
+    z = (z / length) % 2 == 0 ? z % length : length - (z % length) - 1;
+    w = (w / time  ) % 2 == 0 ? w % time   : time   - (z % time  ) - 1;
     return array4D[x + y * width + z * width * height + w * width * height * length];
   }
 
@@ -248,22 +249,22 @@ struct Array4D
     index.w++;
   }
 
-  std::vector<int>::iterator begin()
+  typename std::vector<T>::iterator begin()
   {
     return array4D.begin();
   }
 
-  std::vector<int>::iterator end()
+  typename std::vector<T>::iterator end()
   {
     return array4D.end();
   }
 
-  std::vector<int>::const_iterator begin() const
+  typename std::vector<T>::const_iterator begin() const
   {
     return array4D.cbegin();
   }
 
-  std::vector<int>::const_iterator end() const
+  typename std::vector<T>::const_iterator end() const
   {
     return array4D.cend();
   }

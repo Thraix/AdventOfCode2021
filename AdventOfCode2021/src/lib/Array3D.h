@@ -98,18 +98,18 @@ struct Array3D
   T& GetMirror(int x, int y, int z) 
   {
     // if width = 3, it will repeat x like this: 012210012210, same with height and length
-    int x = (x / width ) % 2 == 0 ? x % width  : width  - (x % width ) - 1;
-    int y = (y / height) % 2 == 0 ? y % height : height - (y % height) - 1;
-    int z = (z / length) % 2 == 0 ? z % length : length - (z % length) - 1;
+    x = (x / width ) % 2 == 0 ? x % width  : width  - (x % width ) - 1;
+    y = (y / height) % 2 == 0 ? y % height : height - (y % height) - 1;
+    z = (z / length) % 2 == 0 ? z % length : length - (z % length) - 1;
     return array3D[x + y * width + z * width * height];
   }
 
   const T& GetMirror(int x, int y, int z) const
   {
     // if width = 3, it will repeat x like this: 012210012210, same with height and length
-    int x = (x / width ) % 2 == 0 ? x % width  : width  - (x % width ) - 1;
-    int y = (y / height) % 2 == 0 ? y % height : height - (y % height) - 1;
-    int z = (z / length) % 2 == 0 ? z % length : length - (z % length) - 1;
+    x = (x / width ) % 2 == 0 ? x % width  : width  - (x % width ) - 1;
+    y = (y / height) % 2 == 0 ? y % height : height - (y % height) - 1;
+    z = (z / length) % 2 == 0 ? z % length : length - (z % length) - 1;
     return array3D[x + y * width + z * width * height];
   }
 
@@ -220,22 +220,22 @@ struct Array3D
     index.z++;
   }
 
-  std::vector<int>::iterator begin()
+  typename std::vector<T>::iterator begin()
   {
     return array3D.begin();
   }
 
-  std::vector<int>::iterator end()
+  typename std::vector<T>::iterator end()
   {
     return array3D.end();
   }
 
-  std::vector<int>::const_iterator begin() const
+  typename std::vector<T>::const_iterator begin() const
   {
     return array3D.cbegin();
   }
 
-  std::vector<int>::const_iterator end() const
+  typename std::vector<T>::const_iterator end() const
   {
     return array3D.cend();
   }
