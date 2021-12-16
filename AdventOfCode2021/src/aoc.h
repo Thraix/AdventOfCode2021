@@ -9,6 +9,7 @@
 #include "lib/Timer.h"
 
 #include <algorithm>
+#include <bitset>
 #include <cstring>
 #include <fstream>
 #include <functional>

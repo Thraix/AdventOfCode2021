@@ -36,7 +36,7 @@ namespace day14
     for(int i = 0; i < 10; i++)
     {
       std::string newString;
-      for(int j = 0; j < str.size() - 1; j++)
+      for(size_t j = 0; j < str.size() - 1; j++)
       {
         auto it = input.pairs.find(str.substr(j, 2));
         newString.push_back(str[j]);
@@ -74,7 +74,7 @@ namespace day14
   {
     std::string str = input.str;
     std::map<std::string, int64_t> pairCounts;
-    for(int j = 0; j < str.size() - 1; j++)
+    for(size_t j = 0; j < str.size() - 1; j++)
     {
       pairCounts[input.str.substr(j, 2)]++;
     }
