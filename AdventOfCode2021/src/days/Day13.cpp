@@ -49,9 +49,8 @@ namespace day13
       if(str.empty())
         break;
       Index2D index;
-      char c;
       std::stringstream ss{str};
-      ss >> index.x >> c >> index.y;
+      ss >> index.x >> "," >> index.y;
       paper.indices.emplace(index);
     }
 

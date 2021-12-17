@@ -6,6 +6,20 @@
 #include <iostream>
 #include <string>
 
+static std::istream& operator>>(std::istream& stream, char const* pattern) {
+  char c;
+  while (stream.peek() == ' ')
+    stream.get(c);
+
+  while(*pattern != '\0' && stream && *pattern == stream.peek() && stream.get(c))
+    ++pattern;
+
+  if (*pattern != '\0')
+    stream.setstate(std::ios::failbit);
+
+  return stream;
+}
+
 struct Input
 {
   static Array2D<char> ReadArray2D(std::istream& input)

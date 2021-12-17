@@ -25,8 +25,7 @@ namespace day05
     {
       std::stringstream ss{str};
       Line line;
-      char c;
-      ss >> line.x1 >> c >> line.y1 >> c >> c >> line.x2 >> c >> line.y2;
+      ss >> line.x1 >> "," >> line.y1 >> "->" >> line.x2 >> "," >> line.y2;
       lines.emplace_back(line);
     }
     return lines;

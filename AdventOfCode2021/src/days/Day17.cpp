@@ -18,10 +18,8 @@ namespace day17
   READ_INPUT(input)
   {
 
-    std::string str;
-    char c;
     Area area;
-    input >> str >> str >> c >> c >> area.p1.x >> c >> c >> area.p2.x >> c >> c >> c >> area.p1.y >> c >> c >> area.p2.y;
+    input >> "target area: x=" >> area.p1.x >> ".." >> area.p2.x >> ", y=" >> area.p1.y >> ".." >> area.p2.y;
     return area;
   }
 
