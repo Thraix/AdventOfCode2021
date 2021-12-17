@@ -2,9 +2,9 @@
 
 namespace day16
 {
-  int Read(const std::string& str, int& offset, int size)
+  int64_t Read(const std::string& str, int& offset, int size)
   {
-    int i = Helper::BinStrToInt(str.substr(offset, size));
+    int64_t i = Helper::BinStrToInt64(str.substr(offset, size));
     offset += size;
     return i;
   }
@@ -12,12 +12,12 @@ namespace day16
   std::pair<int64_t, int64_t> ReadPacket(const std::string& str, int& offset)
   {
     int64_t version = Read(str, offset, 3);
-    int type = Read(str, offset, 3);
+    int64_t type = Read(str, offset, 3);
 
     if(type == 4)
     {
       // Normal packet
-      int type = Read(str, offset, 1);
+      int64_t type = Read(str, offset, 1);
       int64_t val = 0;
       while(type == 1)
       {
@@ -30,13 +30,13 @@ namespace day16
     else
     {
       // Packet containing packets
-      int lengthId = Read(str, offset, 1);
+      int64_t lengthId = Read(str, offset, 1);
       std::vector<int64_t> values;
       int64_t versionTotal = version;
       if(lengthId == 0)
       {
-        int totalLength = Read(str, offset, 15);
-        int start = offset;
+        int64_t totalLength = Read(str, offset, 15);
+        int64_t start = offset;
         while(offset < start + totalLength)
         {
           auto[version, value] = ReadPacket(str, offset);
@@ -46,8 +46,8 @@ namespace day16
       }
       else
       {
-        int totalPackets = Read(str, offset, 11);
-        for(int i = 0; i < totalPackets; i++)
+        int64_t totalPackets = Read(str, offset, 11);
+        for(int64_t i = 0; i < totalPackets; i++)
         {
           auto[version, value] = ReadPacket(str, offset);
           values.emplace_back(value);
@@ -56,13 +56,13 @@ namespace day16
       }
 
       if(type == 0)
-        return {versionTotal, std::accumulate(values.begin(), values.end(), 0ll, [](int64_t sum, int64_t val) {return sum + val; })};
+        return {versionTotal, std::accumulate(values.begin(), values.end(), 0ll, [](int64_t sum, int64_t val) { return sum + val; })};
       else if(type == 1)
-        return {versionTotal, std::accumulate(values.begin(), values.end(), 1ll, [](int64_t prod, int64_t val) {return prod * val; })};
+        return {versionTotal, std::accumulate(values.begin(), values.end(), 1ll, [](int64_t prod, int64_t val) { return prod * val; })};
       else if(type == 2)
-        return {versionTotal, std::accumulate(values.begin(), values.end(), values.front(), [](int64_t max, int64_t val) {return std::min(max, val); })};
+        return {versionTotal, std::accumulate(values.begin(), values.end(), values.front(), [](int64_t max, int64_t val) { return std::min(max, val); })};
       else if(type == 3)
-        return {versionTotal, std::accumulate(values.begin(), values.end(), values.front(), [](int64_t min, int64_t val) {return std::max(min, val); })};
+        return {versionTotal, std::accumulate(values.begin(), values.end(), values.front(), [](int64_t min, int64_t val) { return std::max(min, val); })};
       else if(type == 5)
         return {versionTotal, values[0] > values[1] ? 1 : 0};
       else if(type == 6)
