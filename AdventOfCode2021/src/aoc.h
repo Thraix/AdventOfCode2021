@@ -16,6 +16,7 @@
 #include <iostream>
 #include <map>
 #include <numeric>
+#include <optional>
 #include <regex>
 #include <set>
 #include <sstream>
@@ -23,6 +24,7 @@
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
+#include <variant>
 #include <vector>
 
 #define TERM_RED "\x1B[31m"
