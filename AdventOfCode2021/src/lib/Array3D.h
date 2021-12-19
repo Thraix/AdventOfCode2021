@@ -19,6 +19,16 @@ struct Index3D
     return IsValid();
   }
 
+  Index3D operator+(const Index3D& other) const
+  {
+    return Index3D{x + other.x, y + other.y, z + other.z};
+  }
+
+  Index3D operator-(const Index3D& other) const
+  {
+    return Index3D{x - other.x, y - other.y, z - other.z};
+  }
+
   friend std::ostream& operator<<(std::ostream& stream, const Index3D& index)
   {
     return stream << "(" << index.x << " " << index.y << " " << index.z << ")";

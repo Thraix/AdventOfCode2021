@@ -20,6 +20,16 @@ struct Index4D
     return IsValid();
   }
 
+  Index4D operator+(const Index4D& other) const
+  {
+    return Index4D{x + other.x, y + other.y, z + other.z, w + other.w};
+  }
+
+  Index4D operator-(const Index4D& other) const
+  {
+    return Index4D{x - other.x, y - other.y, z - other.z, w - other.w};
+  }
+
   friend std::ostream& operator<<(std::ostream& stream, const Index4D& index)
   {
     return stream << "(" << index.x << " " << index.y << " " << index.z << " " << index.w << ")";

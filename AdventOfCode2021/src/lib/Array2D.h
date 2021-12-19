@@ -18,6 +18,16 @@ struct Index2D
     return IsValid();
   }
 
+  Index2D operator+(const Index2D& other) const
+  {
+    return Index2D{x + other.x, y + other.y};
+  }
+
+  Index2D operator-(const Index2D& other) const
+  {
+    return Index2D{x - other.x, y - other.y};
+  }
+
   friend std::ostream& operator<<(std::ostream& stream, const Index2D& index)
   {
     return stream << "(" << index.x << " " << index.y << ")";
