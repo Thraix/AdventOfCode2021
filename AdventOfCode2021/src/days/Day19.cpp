@@ -167,9 +167,9 @@ namespace day19
 
     // Find largest manhattan distance between two scanners
     int maxDistance = 0;
-    for(int i = 0; i < scannerPos.size(); i++)
+    for(size_t i = 0; i < scannerPos.size(); i++)
     {
-      for(int j = i + 1; j < scannerPos.size(); j++)
+      for(size_t j = i + 1; j < scannerPos.size(); j++)
       {
         Index3D distance = scannerPos[i] - scannerPos[j];
         maxDistance = std::max(maxDistance, std::abs(distance.x) + std::abs(distance.y) + std::abs(distance.z));

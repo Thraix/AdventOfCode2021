@@ -62,6 +62,10 @@ struct Array3D
   int length;
   std::vector<T> array3D;
 
+  Array3D()
+    : width{0}, height{0}, length{0}
+  {}
+
   Array3D(int width, int height, int length)
     : width{width}, height{height}, length{length}
   {

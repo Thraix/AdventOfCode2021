@@ -64,8 +64,11 @@ struct Array4D
   int height;
   int length;
   int time;
-  int w;
   std::vector<T> array4D;
+
+  Array4D()
+    : width{0}, height{0}, length{0}, time{0}
+  {}
 
   Array4D(int width, int height, int length, int time)
     : width{width}, height{height}, length{length}, time{time}
@@ -74,7 +77,7 @@ struct Array4D
   }
 
   Array4D(int width, int height, int length, int time, const std::vector<T>& data)
-    : width{width}, height{height}, length{length}, w{time}, array4D{data}
+    : width{width}, height{height}, length{length}, time{time}, array4D{data}
   {}
 
   void Fill(const T& value)

@@ -58,6 +58,10 @@ struct Array2D
   int height;
   std::vector<T> array2D;
 
+  Array2D()
+    : width{0}, height{0}
+  {}
+
   Array2D(int width, int height)
     : width{width}, height{height}
   {
