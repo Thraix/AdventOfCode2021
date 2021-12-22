@@ -173,6 +173,11 @@ struct Array3D
     return neighbors;
   }
 
+  bool IsInside(const Index3D& index) const
+  {
+    return index.x >= 0 && index.y >= 0 && index.z >= 0 && index.x < width && index.y < height && index.z < length;
+  }
+
   int Count(const T& val)
   {
     int count = 0;

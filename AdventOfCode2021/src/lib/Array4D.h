@@ -188,6 +188,11 @@ struct Array4D
     return neighbors;
   }
 
+  bool IsInside(const Index4D& index) const
+  {
+    return index.x >= 0 && index.y >= 0 && index.z >= 0 && index.w >= 0 && index.x < width && index.y < height && index.z < length && index.w < time;
+  }
+
   int Count(const T& val)
   {
     int count = 0;
