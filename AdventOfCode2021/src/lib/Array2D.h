@@ -116,8 +116,8 @@ struct Array2D
   const T& GetMirror(int x, int y) const
   {
     // if width = 3, it will repeat x like this: 012210012210, same with height
-    int x = (x / width ) % 2 == 0 ? x % width  : width  - (x % width ) - 1;
-    int y = (y / height) % 2 == 0 ? y % height : height - (y % height) - 1;
+    x = (x / width ) % 2 == 0 ? x % width  : width  - (x % width ) - 1;
+    y = (y / height) % 2 == 0 ? y % height : height - (y % height) - 1;
     return array2D[x + y * width];
   }
 

@@ -1,0 +1,15 @@
+<makegen>
+  <configuration name="Release">
+    <generatehfile>false</generatehfile>
+    <hfilename>AdventOfCode.h</hfilename>
+    <cflag>-o3</cflag>
+    <includedir>src/</includedir>
+    <outputdir>bin/</outputdir>
+    <outputname>adventofcode2021.out</outputname>
+    <outputtype>executable</outputtype>
+    <projectname>AdventOfCode2021</projectname>
+    <srcdir>src/</srcdir>
+  </configuration>
+  <target>Release</target>
+  <version>v1.3.0</version>
+</makegen>

@@ -59,7 +59,7 @@ namespace aoc
     int GetPart() const { return part; }
   };
 
-  class Day 
+  class Day
   {
   public:
     virtual bool Run() = 0;
@@ -85,7 +85,7 @@ namespace aoc
       tests.emplace_back(test);
     }
 
-    bool Run()
+    bool Run() override
     {
       for (const auto& test : tests)
       {
