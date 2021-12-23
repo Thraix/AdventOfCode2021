@@ -22,7 +22,7 @@ $(BIN):
 $(OBJPATH):
 	@$(MKDIR_P) $(OBJPATH)
 run: all
-	@./$(OUTPUT) "Day24"
+	@./$(OUTPUT)
 rebuild: clean all
 clean:
 	$(info Removing intermediates)

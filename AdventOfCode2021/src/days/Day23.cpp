@@ -179,34 +179,18 @@ namespace day23
     return newStates;
   }
 
+
+  std::vector<std::pair<int, State>> ValidStates4(const State& state)
+  {
+    return ValidStates(state, 4);
+  }
+
   int Solve(const State& state, int h)
   {
-    // A-star algorithm to find cost
-    std::set<State> visitedStates;
-    std::multimap<int, std::pair<int, State>> states;
-    states.emplace(0, std::pair<int, State>{0, state});
-    int i = 0;
-    while(!states.empty())
-    {
-      i++;
-      auto it = states.begin();
-      int stateCost = it->second.first;
-      const State state = it->second.second;
-      visitedStates.emplace(state);
-      states.erase(it);
-      if(ValidateState(state))
-      {
-        return stateCost;
-      }
-      for(auto& newState : ValidStates(state, h))
-      {
-        auto it = visitedStates.find(newState.second);
-        int cost = stateCost + newState.first;
-        if(it == visitedStates.end())
-          states.emplace(Heuristic(newState.second) + cost, std::pair<int, State>{cost, newState.second});
-      }
-    }
-    return 0;
+    return Helper::AStar(state,
+                         &Heuristic,
+                         [h](const State& state) { return ValidStates(state, h); },
+                         &ValidateState);
   }
 
   REGISTER_DAY(day23, State, int);

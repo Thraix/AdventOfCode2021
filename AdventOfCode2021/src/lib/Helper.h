@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <functional>
+#include <map>
 #include <numeric>
 #include <set>
 #include <vector>
@@ -170,5 +171,42 @@ struct Helper
         return false;
     }
     return true;
+  }
+
+  template <typename T, typename Heuristic, typename Branch, typename Goal>
+  static int AStar(const T& initial, Heuristic heuristic, Branch branch, Goal goal)
+  {
+    std::map<T, int> visited;
+    std::multimap<int, std::pair<int, T>> open;
+    open.emplace(0, std::pair<int, T>{0, initial});
+    int i = 0;
+    while(!open.empty())
+    {
+      i++;
+      auto it = open.begin();
+      if(goal(it->second.second))
+      {
+        return it->second.first;
+      }
+      int stateCost = it->second.first;
+      for(auto& newState : branch(it->second.second))
+      {
+        auto it = visited.find(newState.second);
+        int cost = stateCost + newState.first;
+        if(it == visited.end() || it->second > cost)
+        {
+          open.emplace(heuristic(newState.second) + cost, std::pair<int, T>{cost, newState.second});
+          visited.emplace(newState.second, cost);
+        }
+      }
+      open.erase(open.begin());
+    }
+    return 0;
+  }
+
+  template <typename T, typename Branch, typename Goal>
+  static int Dijkstras(const T& initial, Branch branch, Goal goal)
+  {
+    return AStar(initial, [](const T&) { return 0; }, branch, goal);
   }
 };
