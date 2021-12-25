@@ -2,7 +2,6 @@
   <configuration name="Release">
     <generatehfile>false</generatehfile>
     <hfilename>AdventOfCode.h</hfilename>
-    <cflag>-o3</cflag>
     <includedir>src/</includedir>
     <outputdir>bin/</outputdir>
     <outputname>adventofcode2021.out</outputname>
